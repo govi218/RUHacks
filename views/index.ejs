@@ -1,0 +1,49 @@
+<%# views/index.ejs %>
+
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <style>
+  body{
+      margin-left: 20px;
+  }
+  </style>
+
+  <div id='messageArea' class='row'>
+      <div class='col-md-3' id="strategy">
+          <div class='well' id="prompts">
+              <h3> Prompts</h3>
+              <ul class='list-group'>
+                  <li class="list-item"> Monte-Carlo Simulation: monte (symbol) </li>
+                  <li class="list-item"> Reversion to the mean: rev (universe) </li>
+                  <li class="list-item"> Channel Breakouts: breakout (universe) </li>
+                  <li class="list-item"> Basic Momentum: momentum (universe) </li>
+                  <li class="list-item"> Moving Average Crossover: mac (universe) </li>
+                  <li class="list-item"> Sentiment Analysis: Coming Soon! </li>
+              </ul>
+          </div>
+          <div class='well' id="prompts">
+              <h3> Universes</h3>
+              <ul class='list-group'>
+                  <li class="list-item"> S&P 100: sp100 </li>
+                  <li class="list-item"> NASDAQ 100: nas100 </li>
+                  <li class="list-item"> TSX 60: tsx60 </li>
+                  <li class="list-item"> SPDR ETFs: spdr </li>
+              </ul>
+          </div>
+      </div>
+      <div class='col-md-8' id="chat">
+          <div class='container' id='messageBox'></div>
+          <div class="container" id="messageFormDiv">
+              <form id='messageForm'>
+                  <div class="form-group">
+                      <label for="message" style="color:white;">Enter Message</label>
+                      <br/>
+                      <input type="text" id="message" class="form-control" placeholder="Ask away!" style="width:80%; float: left;">
+                      <input type='submit' class='btn btn-primary' value='Send' id="send" style="width: 15%; float: left; background-color: #222; color: white; border-color:white;" />
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/javascripts/socket.js"></script>
+  <script src='/socket.io/socket.io.js'> </script>
