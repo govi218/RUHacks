@@ -1,4 +1,5 @@
-//var PythonShell = require('python-shell');
+const request = require('request');
+const https = require('https');
 
 var chat = function(io) {
     
@@ -10,9 +11,8 @@ var chat = function(io) {
 
         //initial message
         socket.on('page ready', function(data){
-            io.sockets.emit('forUser', {msg: "Welcome to Yung Quant, your personal quantitative developer and analyst. If you're a regular, you know what to do. If you're a newbie ask for help!", sender: "yq", id: data.id});
-            io.sockets.emit('forUser', {msg: "If you're on a mobile device you can see the prompts and universes by sending 'prompts' or 'universes'", sender: "yq", id: data.id});
-        
+            io.sockets.emit('forUser', {msg: "Welcome to Vert!", sender: "vert", id: data.id});
+            io.sockets.emit('forUser', {msg: "I can calculate mortgages! Ask me some questions.", sender: "vert", id: data.id})
         });
 
 
@@ -27,46 +27,41 @@ var chat = function(io) {
             io.sockets.emit('forUser', {msg: data.message, sender: data.sender, id: data.id});
             //stock greeting
             if(data.message == "Hi" || data.message == "hi" || data.message == "hey" || data.message == "Hey"){
-                io.sockets.emit('forUser', {msg: "Hi! Let's make some money \\m/", sender: "yq", id: data.id}); return;
-            }
-            //user asks for help
-            else if(data.message == "Help" || data.message == "help" || data.message == "Help me" || data.message == "help me"){
-                io.sockets.emit('forUser', {msg: "First, make sure you've had a look at the Strategies page and know which strategy you're interested in. Once you've done that, find your strategy under the prompts heading to my left and send me a message with your strategy prompt with the universe that you're interested in trading", sender: "yq", id: data.id});
-                io.sockets.emit('forUser', {msg: "Here's and example: 'mac spdr' This will screen for stocks from the spdr ETFs using the moving average crossover strategy", sender: "yq", id: data.id});
-            }
-            //user wants to be reminded of prompts (mobile)
-            else if(data.message == "prompts" || data.message == "Prompts"){
-                var prompts = "<li class='list-item'> Monte-Carlo Simulation: monte (symbol) </li>\
-                        <li class='list-item'> Reversion to the mean: rev (universe) </li>\
-                        <li class='list-item'> Channel Breakouts: breakout (universe) </li>\
-                        <li class='list-item'> Basic Momentum: momentum (universe) </li>\
-                        <li class='list-item'> Moving Average Crossover: mac (universe) </li>\
-                        <li class='list-item'> Sentiment Analysis: Coming Soon! </li>";
-                io.sockets.emit('forUser', {msg: prompts, sender: "yq", id: data.id});
-            }
-            //user wants to be reminded of universes available (mobile)
-            else if(data.message == "universes" || data.message == "Universes"){
-                var universes = "<li class='list-item'> S&P 100: sp100 </li>\
-                        <li class='list-item'> NASDAQ 100: nas100 </li>\
-                        <li class='list-item'> SPDR ETFs: spdr </li>";
-                io.sockets.emit('forUser', {msg: universes, sender: "yq", id: data.id});
-            }
-            //user enters anything else, likely a proper prompt
-            else{
-                
-                io.sockets.emit('forUser', {msg: "This could take up to 15 seconds...", sender: "yq", id: data.id});
-                data.message = data.message.toLowerCase();
+                io.sockets.emit('forUser', {msg: "Hi! Let's make some money \\m/", sender: "vert", id: data.id}); return;
+            } else {
+                console.log('y');
                 var options = {
-                    args: data.message,
-                    pythonPath: "python3"
-                }
-                if(data.message.split(' ')[0] == 'monte'){
-                    io.sockets.emit('forUser', {msg: "ayyyyyyy", sender: "yq", id: data.id, monte: 1});
-                }
-                else{
-                    io.sockets.emit('forUser', {msg: 'AYYYY', sender: "yq", id: data.id, monte: 1});
-                }
+                    "method": "POST",
+                    "hostname": "5l13sud741.execute-api.us-east-1.amazonaws.com",
+                    "path": "/test/message/",
+                    "headers": {
+                      "Content-Type": "application/json",
+                      "Host": "5l13sud741.execute-api.us-east-1.amazonaws.com",
+                      "X-Amz-Date": "20180527T000408Z",
+                      "Authorization": "AWS4-HMAC-SHA256 Credential=AKIAIGQE4M7VIBJPY4TA/20180527/us-east-1/execute-api/aws4_request, SignedHeaders=cache-control;content-length;content-type;host;postman-token;x-amz-date, Signature=0d53a4a6c536a86d910e3d5fe4969d31bd2376c53cd1bdde5b1e39e93db3b36a",
+                      "Cache-Control": "no-cache",
+                      "Postman-Token": "f9d8e5b0-3db9-4214-9b8b-64353ce5e5d2"
+                    }
+                };
                 
+                var req = https.request(options, function (res) {
+                    var chunks = [];
+                    res.on("data", function (chunk) {
+                        chunks.push(chunk);
+                    });
+                    res.on("end", function () {
+                        var body = Buffer.concat(chunks);
+                        console.log(body.toString());
+                        var res = JSON.parse(body.toString());
+                        //console.log()
+                        io.sockets.emit('forUser', {msg: res["message"], sender: "vert", id: data.id}); 
+                        return;
+                        });
+                });
+                    
+                req.write(JSON.stringify({ message: data.message, uuid: '1234534' }));
+                req.end();
+                console.log('??');
             }
         });
     });

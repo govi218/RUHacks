@@ -1,16 +1,19 @@
 #messageArea {
   margin-top: 15px;
+  border-color: black;
   height: 100vh;
 }
 
 #bot {
-  background-color: #222;
-  color: #9d9d9d;
+  background-color: #2ab91d;
+  border-color: black;
+  color: rgb(0, 0, 0);
 }
 
 #user{
-  background-color: #F8F8F8;
-  color: #222;
+  background-color: #4ec04e;
+  border-color: black;
+  color: #000000c0;
   text-align: right;
   margin-right: 2px;
 }
@@ -23,6 +26,7 @@
 
 #prompts{
   background-color: #222;
+  border-color: black;
   color: #9d9d9d;
   padding: 25px;
   text-align: center;
@@ -30,12 +34,14 @@
 
 #send {
   background: #222;
+  border-color: black;
   color: #9d9d9d;
 }
 
 #chat {
   align-self: center;
   border: 1px solid white;
+  border-color: black;
   padding-bottom: 20px;
   height: 70%;
   margin-bottom: 20px;
@@ -51,12 +57,15 @@
 
 #messageFormDiv {
   bottom: 0px;
+  border-color: black;
   width: 100%;
 }
 
 #messageBox {
   height: 80%;
   overflow-y: scroll;
+  border-color: black;
+  border-color: black;
   width: 100%;
   margin: 10px;
 }
@@ -65,16 +74,19 @@
   width: 33%;
   margin: 10px;
   margin: auto;
+  border-color: black;
   display: inline-block;    
 }
 
 #messageForm {
   bottom: 10px;
+  border-color: black;
 }
 
 
 .messageBubble{
   border-radius: 15px;
+  border-color: black;
   padding: 15px;
 }
 
@@ -82,6 +94,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   max-height: 150px;
+  border-color: black;
   margin-top: 55px;
   margin-bottom: 10px;
   width: 100%;

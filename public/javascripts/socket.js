@@ -20,7 +20,7 @@ $(function () {
     });
 
     socket.on('forUser', function (data) {
-        if(data.sender != "yq"){
+        if(data.sender != "vert"){
             if(data.id == id){
                 $messageBox.append("<div class='well messageBubble' id='user' style='width:90%;'>" + data.msg + "</div>");
             }
